@@ -16,26 +16,28 @@ class ModVersions {
 	String clothConfig
 	String minecraftVersion
 	String minClothConfig
+	String modMenu
 	
-	ModVersions(String fabricApi, String clothConfig, String minecraftVersion, String minClothConfig) {
+	ModVersions(String fabricApi, String clothConfig, String minecraftVersion, String minClothConfig, String modMenu) {
 		this.fabricApi = fabricApi
 		this.clothConfig = clothConfig
 		this.minecraftVersion = minecraftVersion
 		this.minClothConfig = minClothConfig
+		this.modMenu = modMenu
 	}
 }
 
 def versionMap = [
-	"1.21": new ModVersions("0.100.8+1.21", "15.0.140", "~1.21", ">=15.0.0"),
-	"1.21.1": new ModVersions("0.104.0+1.21.1", "15.0.140", "~1.21.1", ">=15.0.0"),
-	"1.21.2": new ModVersions("0.107.0+1.21.3", "16.0.141", "~1.21.2", ">=16.0.0"),
-	"1.21.3": new ModVersions("0.107.0+1.21.3", "16.0.141", "~1.21.3", ">=16.0.0"),
-	"1.21.4": new ModVersions("0.113.0+1.21.4", "17.0.144", "~1.21.4", ">=17.0.0"),
-	"1.21.5": new ModVersions("0.126.0+1.21.5", "18.0.145", "~1.21.5", ">=18.0.0"),
-	"1.21.6": new ModVersions("0.127.1+1.21.6", "19.0.147", "~1.21.6", ">=19.0.0"),
-	"1.21.7": new ModVersions("0.127.1+1.21.6", "19.0.147", "~1.21.7", ">=19.0.0"),
-	"1.21.8": new ModVersions("0.127.1+1.21.6", "19.0.147", "~1.21.8", ">=19.0.0"),
-	"1.21.11": new ModVersions("0.141.1+1.21.11", "21.11.153", "~1.21.11", ">=21.11.0")
+	"1.21": new ModVersions("0.100.8+1.21", "15.0.140", ">=1.21 <1.21.2", ">=15.0.0", "11.0.3"),
+	"1.21.1": new ModVersions("0.104.0+1.21.1", "15.0.140", ">=1.21 <1.21.3", ">=15.0.0", "11.0.3"),
+	"1.21.2": new ModVersions("0.107.0+1.21.3", "16.0.141", ">=1.21.2 <1.21.4", ">=16.0.0", "12.0.0"),
+	"1.21.3": new ModVersions("0.107.0+1.21.3", "16.0.141", ">=1.21.2 <1.21.5", ">=16.0.0", "12.0.0"),
+	"1.21.4": new ModVersions("0.113.0+1.21.4", "17.0.144", ">=1.21.4 <1.21.6", ">=17.0.0", "13.0.0"),
+	"1.21.5": new ModVersions("0.126.0+1.21.5", "18.0.145", ">=1.21.5 <1.21.7", ">=18.0.0", "14.0.0"),
+	"1.21.6": new ModVersions("0.127.1+1.21.6", "19.0.147", ">=1.21.6 <1.21.9", ">=19.0.0", "15.0.0-beta.3"),
+	"1.21.7": new ModVersions("0.127.1+1.21.6", "19.0.147", ">=1.21.6 <1.21.9", ">=19.0.0", "15.0.0-beta.3"),
+	"1.21.8": new ModVersions("0.127.1+1.21.6", "19.0.147", ">=1.21.6 <1.21.10", ">=19.0.0", "15.0.0-beta.3"),
+	"1.21.11": new ModVersions("0.141.1+1.21.11", "21.11.153", ">=1.21.11 <1.22", ">=21.11.0", "15.0.0-beta.3")
 ]
 
 def mcVersion = project.minecraft_version
@@ -48,6 +50,7 @@ if (modVersions == null) {
 println "Building for Minecraft ${mcVersion}"
 println "Using Fabric API: ${modVersions.fabricApi}"
 println "Using Cloth Config: ${modVersions.clothConfig}"
+println "Using Mod Menu: ${modVersions.modMenu}"
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -83,8 +86,8 @@ dependencies {
 	// Cloth Config - dynamically set based on Minecraft version
 	modImplementation "me.shedaniel.cloth:cloth-config-fabric:${modVersions.clothConfig}"
 	
-	// Mod Menu integration (Optional but recommended for testing)
-	modImplementation "com.terraformersmc:modmenu:12.0.0-beta.1"
+	// Mod Menu integration - dynamically set based on Minecraft version
+	modImplementation "com.terraformersmc:modmenu:${modVersions.modMenu}"
 }
 
 processResources {

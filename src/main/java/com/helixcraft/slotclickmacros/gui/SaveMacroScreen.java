@@ -132,8 +132,10 @@ public class SaveMacroScreen extends Screen {
     
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        // Render background
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        // In 1.21.6+, we need to render a simple background without blur
+        // to avoid "Can only blur once per frame" error
+        // Use renderTransparentBackground instead of renderBackground
+        this.renderTransparentBackground(graphics);
         
         int centerX = this.width / 2;
         int centerY = this.height / 2;
