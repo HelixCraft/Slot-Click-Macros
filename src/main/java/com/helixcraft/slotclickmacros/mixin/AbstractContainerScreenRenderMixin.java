@@ -17,6 +17,7 @@ public abstract class AbstractContainerScreenRenderMixin {
     
     /**
      * Renders after the slot is drawn, adding our red highlight if needed.
+     * In 1.21.6+, GUI rendering is 2D and uses strata for layering instead of Z-depth.
      */
     @Inject(
         method = "renderSlot",
@@ -28,9 +29,9 @@ public abstract class AbstractContainerScreenRenderMixin {
         PlaybackVisualizer visualizer = PlaybackVisualizer.getInstance();
         
         if (visualizer.shouldHighlight(slot.index)) {
-            // Push pose and translate to high Z-level to draw on top of items
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 400.0F); // z=400 to ensure visibility over items
+            // In 1.21.6+, we use nextStratum() to render on top of items
+            // This creates a new layer that renders after the current one
+            graphics.nextStratum();
             
             // Draw red semi-transparent overlay (50% opacity)
             int x = slot.x;
@@ -38,8 +39,6 @@ public abstract class AbstractContainerScreenRenderMixin {
             
             // Red color with 50% alpha (0x80 = 128/255)
             graphics.fill(x, y, x + 16, y + 16, 0x80FF0000);
-            
-            graphics.pose().popPose();
         }
     }
 }
