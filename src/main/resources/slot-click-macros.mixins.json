@@ -1,0 +1,18 @@
+{
+	"required": true,
+	"package": "com.helixcraft.slotclickmacros.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"AbstractContainerMenuMixin",
+		"AbstractContainerScreenMixin",
+		"AbstractContainerMenuAccessorMixin",
+		"AbstractContainerScreenRenderMixin",
+		"AbstractContainerScreenDragMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
