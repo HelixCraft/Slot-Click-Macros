@@ -1,0 +1,43 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.15.3
+"Lock for cache='/home/timon/.gradle/caches/fabric-loom', project=':'" is currently held by pid '1359111'.
+Run with --info or --debug to show arguments, may reveal sensitive info
+- pid: 1359111
+- command: /home/timon/.kiro/extensions/redhat.java-1.52.0-linux-x64/jre/21.0.9-linux-x86_64/bin/java
+- started at: 2026-02-15T20:17:06.620Z
+- user: timon
+- parent:
+	- pid: 1358646
+	- command: /home/timon/.kiro/extensions/redhat.java-1.52.0-linux-x64/jre/21.0.9-linux-x86_64/bin/java
+	- started at: 2026-02-15T20:16:40.870Z
+	- user: timon
+	- parent:
+		- pid: 1358645
+		- command: /usr/bin/dash
+		- started at: 2026-02-15T20:16:40.860Z
+		- user: timon
+		- parent:
+			- pid: 1356585
+			- command: /usr/share/kiro/kiro
+			- started at: 2026-02-15T20:14:31.810Z
+			- user: timon
+			- parent:
+				- pid: 1356389
+				- command: /usr/share/kiro/kiro
+				- started at: 2026-02-15T20:14:27.530Z
+				- user: timon
+				- parent:
+					- pid: 2135
+					- command: /usr/lib/systemd/systemd
+					- started at: 2026-02-14T21:24:44.610Z
+					- user: timon
+					- parent:
+						- pid: 1
+						- started at: 2026-02-14T21:24:17.080Z
+						- user: root
+Waiting for lock to be released...
+Have been waiting on "Lock for cache='/home/timon/.gradle/caches/fabric-loom', project=':'" held by pid '1359111' for 1 minute(s).
+If this persists for an unreasonable length of time, kill this process, run './gradlew --stop' and then try again.
