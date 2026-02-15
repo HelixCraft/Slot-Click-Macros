@@ -4,9 +4,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.client.gui.components.events.InputWithModifiers;
-import net.minecraft.client.gui.components.events.KeyEvent;
-import net.minecraft.client.gui.components.events.MouseButtonEvent;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
@@ -19,8 +16,6 @@ import java.util.function.Consumer;
  * Custom button for keybind input with modifier key support.
  * Shows "Set Keybind" when empty, "Press any key..." when listening,
  * and the actual keybind when set.
- * 
- * Updated for Minecraft 1.21.9+ input system.
  */
 public class KeybindButton extends AbstractButton {
     private String keybind;
@@ -35,7 +30,7 @@ public class KeybindButton extends AbstractButton {
     }
     
     @Override
-    public void onPress(InputWithModifiers input) {
+    public void onPress() {
         if (listening) {
             // Cancel listening
             listening = false;
@@ -50,12 +45,10 @@ public class KeybindButton extends AbstractButton {
     }
     
     @Override
-    public boolean keyPressed(KeyEvent event) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (!listening) {
-            return super.keyPressed(event);
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
-        
-        int keyCode = event.key();
         
         // Escape clears keybind (sets to empty)
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
@@ -85,8 +78,8 @@ public class KeybindButton extends AbstractButton {
         // Build keybind string
         StringBuilder keybindBuilder = new StringBuilder();
         
-        // In 1.21.9+, access window handle through getHandle()
-        long window = Minecraft.getInstance().getWindow().getHandle();
+        // Get window handle
+        long window = Minecraft.getInstance().getWindow().window;
         
         // Check modifiers
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||
@@ -116,20 +109,20 @@ public class KeybindButton extends AbstractButton {
     }
     
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean consumed) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (!listening) {
-            return super.mouseClicked(event, consumed);
+            return super.mouseClicked(mouseX, mouseY, button);
         }
         
         // Right click cancels
-        if (event.button() == 1) {
+        if (button == 1) {
             listening = false;
             pressedKeys.clear();
             updateMessage();
             return true;
         }
         
-        return super.mouseClicked(event, consumed);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
     
     private void updateMessage() {
@@ -204,7 +197,7 @@ public class KeybindButton extends AbstractButton {
             case GLFW.GLFW_KEY_RIGHT -> "Right";
             case GLFW.GLFW_KEY_UP -> "Up";
             case GLFW.GLFW_KEY_DOWN -> "Down";
-            default -> InputConstants.getKey(InputConstants.Type.KEYSYM.getOrCreate(keyCode)).getDisplayName().getString();
+            default -> InputConstants.getKey(keyCode, -1).getDisplayName().getString();
         };
     }
     

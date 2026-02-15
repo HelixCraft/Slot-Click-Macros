@@ -14,7 +14,7 @@ import java.util.Map;
  * Manages custom keybinds including support for modifier key combinations.
  */
 public class KeybindManager {
-    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category("category.slot-click-macros");
+    private static final String CATEGORY = "slot-click-macros.general";
     
     private final Map<String, KeyMapping> macroKeybinds = new HashMap<>();
     
@@ -110,7 +110,7 @@ public class KeybindManager {
         boolean needsShift = keybindString.toUpperCase().contains("SHIFT+");
         boolean needsAlt = keybindString.toUpperCase().contains("ALT+");
         
-        // In 1.21.9+, Window.getWindow() is removed, use GLFW window handle directly
+        // Get window handle
         long window = Minecraft.getInstance().getWindow().window;
         
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||
@@ -136,8 +136,8 @@ public class KeybindManager {
             return false;
         }
         
-        // In 1.21.9+, access window handle through getHandle()
-        long window = Minecraft.getInstance().getWindow().getHandle();
+        // Get window handle
+        long window = Minecraft.getInstance().getWindow().window;
         
         // Parse modifiers
         boolean needsCtrl = keybindString.toUpperCase().contains("CTRL+");
