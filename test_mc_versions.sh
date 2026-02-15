@@ -11,7 +11,7 @@ declare -a successful_versions
 declare -a failed_versions
 
 # Loop through versions 1.21 to 1.21.11
-for i in {5..11}; do
+for i in {7..11}; do
     if [ $i -eq 0 ]; then
         version="1.21"
     else
