@@ -14,7 +14,7 @@ import java.util.Map;
  * Manages custom keybinds including support for modifier key combinations.
  */
 public class KeybindManager {
-    private static final String CATEGORY = "category.slot-click-macros";
+    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category("category.slot-click-macros");
     
     private final Map<String, KeyMapping> macroKeybinds = new HashMap<>();
     
@@ -28,7 +28,7 @@ public class KeybindManager {
             "key.slot-click-macros.open_config",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_O, // Default to 'O' key
-            "category.slot-click-macros"
+            CATEGORY
         ));
         
         SlotClickMacros.LOGGER.info("Registered config keybind");
@@ -110,7 +110,8 @@ public class KeybindManager {
         boolean needsShift = keybindString.toUpperCase().contains("SHIFT+");
         boolean needsAlt = keybindString.toUpperCase().contains("ALT+");
         
-        long window = net.minecraft.client.Minecraft.getInstance().getWindow().getWindow();
+        // In 1.21.9+, Window.getWindow() is removed, use GLFW window handle directly
+        long window = Minecraft.getInstance().getWindow().window;
         
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||
                           GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
@@ -135,7 +136,8 @@ public class KeybindManager {
             return false;
         }
         
-        long window = Minecraft.getInstance().getWindow().getWindow();
+        // In 1.21.9+, access window handle through getHandle()
+        long window = Minecraft.getInstance().getWindow().getHandle();
         
         // Parse modifiers
         boolean needsCtrl = keybindString.toUpperCase().contains("CTRL+");

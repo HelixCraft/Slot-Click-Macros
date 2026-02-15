@@ -8,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.components.events.KeyEvent;
+import net.minecraft.client.gui.components.events.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.Collections;
@@ -110,22 +112,26 @@ public class MacroListEntry extends AbstractConfigListEntry<String> {
     }
     
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (keybindButton != null && keybindButton.mouseClicked(mouseX, mouseY, button)) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean consumed) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int button = event.button();
+        
+        if (keybindButton != null && keybindButton.mouseClicked(event, consumed)) {
             return true;
         }
-        if (deleteButton != null && deleteButton.mouseClicked(mouseX, mouseY, button)) {
+        if (deleteButton != null && deleteButton.mouseClicked(event, consumed)) {
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, consumed);
     }
     
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent event) {
         if (keybindButton != null && keybindButton.isListening()) {
-            return keybindButton.keyPressed(keyCode, scanCode, modifiers);
+            return keybindButton.keyPressed(event);
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(event);
     }
     
     @Override
