@@ -1,5 +1,15 @@
 # Slot Click Macros
 
+![Environment](https://img.shields.io/badge/Environment-Client-purple)
+[![Java 21](https://img.shields.io/badge/Language-Java%2021-orange)](https://www.oracle.com/java/technologies/downloads/#java21)
+[![Modrinth](https://img.shields.io/badge/Modrinth-Slot--Click--Macros-00AF5C?logo=modrinth)](https://modrinth.com/mod/slot-click-macros)
+
+<p align="left">
+  <a href="https://modrinth.com/mod/slot-click-macros">
+    <img src="https://github.com/user-attachments/assets/6bc92930-84f9-4eb1-ae1d-8f79775b87c6" width="200" alt="Download on Modrinth">
+  </a>
+</p>
+
 A Minecraft Fabric mod that records and replays inventory click sequences to automate repetitive container interactions.
 
 **⚠️ Warning: USE AT YOUR OWN RISK!** This mod can be detected by anti-cheat systems and may result in bans on multiplayer servers if your not careful. Always use safe delay settings (100ms+ base, 50ms+ random) and check server rules before using. The developers are not responsible for any consequences.
@@ -13,12 +23,17 @@ A Minecraft Fabric mod that records and replays inventory click sequences to aut
 - **Queue system** - Macros automatically execute when you open the next container
 - **Easy management** - Assign keybinds, view, edit, and delete macros via config GUI
 
+![](https://cdn.modrinth.com/data/cached_images/3ce19f22c5fdf5b943678c21f948fb5277ba2899_0.webp)
+
 ### Installation
 
 1. Install [Fabric Loader](https://fabricmc.net/use/)
 2. Install [Fabric API](https://modrinth.com/mod/fabric-api)
 3. Install [Cloth Config](https://modrinth.com/mod/cloth-config)
 4. Place Slot Click Macros in your `mods` folder
+
+<a href="https://modrinth.com/mod/fabric-api"><img src="https://raw.githubusercontent.com/FeelZoR/Fleeing-Animals/develop/src/main/resources/assets/fleeinganimals/requirements/fabric-api.png" width="200" alt="Fabric API auf Modrinth"></a>
+<a href="https://modrinth.com/mod/cloth-config"><img src="https://raw.githubusercontent.com/FeelZoR/Fleeing-Animals/develop/src/main/resources/assets/fleeinganimals/requirements/cloth-config.png" width="200" alt="Cloth Config auf Modrinth"></a>
 
 ### Quick Start
 
