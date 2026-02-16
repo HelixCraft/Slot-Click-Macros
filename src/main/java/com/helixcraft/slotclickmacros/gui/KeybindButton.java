@@ -79,7 +79,7 @@ public class KeybindButton extends AbstractButton {
         StringBuilder keybindBuilder = new StringBuilder();
         
         // Get window handle
-        long window = Minecraft.getInstance().getWindow().window;
+        long window = Minecraft.getInstance().getWindow().getWindow();
         
         // Check modifiers
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||

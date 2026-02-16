@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -14,7 +15,9 @@ import java.util.Map;
  * Manages custom keybinds including support for modifier key combinations.
  */
 public class KeybindManager {
-    private static final String CATEGORY = "slot-click-macros.general";
+    // In 1.21.9+, KeyMapping.Category is an object, not a String
+    private static final KeyMapping.Category CATEGORY = 
+        KeyMapping.Category.create(ResourceLocation.fromNamespaceAndPath("slot-click-macros", "general"));
     
     private final Map<String, KeyMapping> macroKeybinds = new HashMap<>();
     
@@ -111,7 +114,7 @@ public class KeybindManager {
         boolean needsAlt = keybindString.toUpperCase().contains("ALT+");
         
         // Get window handle
-        long window = Minecraft.getInstance().getWindow().window;
+        long window = Minecraft.getInstance().getWindow().getWindow();
         
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||
                           GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
@@ -137,7 +140,7 @@ public class KeybindManager {
         }
         
         // Get window handle
-        long window = Minecraft.getInstance().getWindow().window;
+        long window = Minecraft.getInstance().getWindow().getWindow();
         
         // Parse modifiers
         boolean needsCtrl = keybindString.toUpperCase().contains("CTRL+");
