@@ -17,7 +17,7 @@ import java.util.Map;
 public class KeybindManager {
     // In 1.21.9+, KeyMapping.Category is an object, not a String
     private static final KeyMapping.Category CATEGORY = 
-        KeyMapping.Category.create(ResourceLocation.fromNamespaceAndPath("slot-click-macros", "general"));
+        KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath("slot-click-macros", "general"));
     
     private final Map<String, KeyMapping> macroKeybinds = new HashMap<>();
     
@@ -114,7 +114,7 @@ public class KeybindManager {
         boolean needsAlt = keybindString.toUpperCase().contains("ALT+");
         
         // Get window handle
-        long window = Minecraft.getInstance().getWindow().getWindow();
+        long window = Minecraft.getInstance().getWindow().handle();
         
         boolean hasCtrl = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS ||
                           GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
@@ -140,7 +140,7 @@ public class KeybindManager {
         }
         
         // Get window handle
-        long window = Minecraft.getInstance().getWindow().getWindow();
+        long window = Minecraft.getInstance().getWindow().handle();
         
         // Parse modifiers
         boolean needsCtrl = keybindString.toUpperCase().contains("CTRL+");

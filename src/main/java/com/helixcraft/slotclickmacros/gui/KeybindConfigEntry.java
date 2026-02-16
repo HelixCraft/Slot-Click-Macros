@@ -3,6 +3,8 @@ package com.helixcraft.slotclickmacros.gui;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.Collections;
@@ -51,19 +53,21 @@ public class KeybindConfigEntry extends AbstractConfigListEntry<String> {
     }
     
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.button.mouseClicked(mouseX, mouseY, button)) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean consumed) {
+        if (consumed) return false;
+        
+        if (this.button.mouseClicked(event, consumed)) {
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, consumed);
     }
     
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent keyEvent) {
         if (button.isListening()) {
-            return button.keyPressed(keyCode, scanCode, modifiers);
+            return button.keyPressed(keyEvent);
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyEvent);
     }
     
     @Override

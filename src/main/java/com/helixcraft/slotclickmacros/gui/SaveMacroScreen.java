@@ -4,11 +4,11 @@ import com.helixcraft.slotclickmacros.SlotClickMacros;
 import com.helixcraft.slotclickmacros.data.Macro;
 import com.helixcraft.slotclickmacros.io.MacroFileManager;
 import com.helixcraft.slotclickmacros.recording.MacroRecorder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -183,7 +183,9 @@ public class SaveMacroScreen extends Screen {
     }
     
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        int keyCode = keyEvent.key();
+        
         // Enter key saves
         if (keyCode == 257 || keyCode == 335) { // ENTER or NUMPAD_ENTER
             saveMacro();
@@ -197,7 +199,7 @@ public class SaveMacroScreen extends Screen {
             return true;
         }
         
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyEvent);
     }
     
     @Override
